@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git Clone') {
+            steps {
+                script {
+                    // Clone the Git repository
+                    git branch: 'main', url: 'https://github.com/mai-efat/Dynamicinventory.git'
+                }
+            }
+        }
+
+
+        stage('Run Ansible Playbook') {
+            steps {
+                script {
+                    // Run the Ansible playbook using SSH credentials
+             withCredentials([sshUserPrivateKey(credentialsId: 'agent', keyFileVariable: 'privatekey', passphraseVariable: 'password', usernameVariable: 'username')])
+              {
+    // some block
+
+                       
+                        // Ensure correct permissions for private key
+                    
+
+                        // Run Ansible playbook with the private key and user credentials
+                        sh """
+                            ansible-playbook -i aws_ec2.yml -u ec2-user --private-key $privatekey playbook.yaml
+
+                        """
+              }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()  // Clean up the workspace after execution
+        }
+    }
+}

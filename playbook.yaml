@@ -1,0 +1,17 @@
+---
+- name: Install Cloud Agent on EC2 instance
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install AWS CloudWatch Agent
+      yum:
+        name: amazon-cloudwatch-agent
+        state: present
+    
+    - name: Configure CloudWatch Agent
+      command: /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+    
+    - name: Start CloudWatch Agent
+      service:
+        name: amazon-cloudwatch-agent
+        state: started

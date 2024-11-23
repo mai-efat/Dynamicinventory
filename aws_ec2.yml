@@ -1,0 +1,22 @@
+plugin: amazon.aws.ec2
+regions:
+  - eu-north-1  # Specify the AWS region(s) to query
+
+
+
+hostnames: dns
+
+filters:
+  instance-state-name: running  # Filter instances by state (running, stopped, etc.)
+
+# Optional: Include only instances with specific tags
+# filters:
+#   "tag:Role": "webserver"
+
+# Optional: Specify instance types to include
+# instance_types:
+#   - t2.micro
+#   - t2.small
+
+# Optional: Use AWS profile from credentials file (if you have multiple profiles)
+# profile: my-profile
