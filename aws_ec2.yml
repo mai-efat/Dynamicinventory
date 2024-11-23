@@ -4,7 +4,10 @@ regions:
 
 
 
-hostnames: dns
+hostnames:  
+ - private-ip-address  # Use private IP address for EC2 instances
+
+
 
 filters:
   instance-state-name: running  # Filter instances by state (running, stopped, etc.)
