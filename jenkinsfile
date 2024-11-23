@@ -20,12 +20,13 @@ pipeline {
                                                         passphraseVariable: 'password', 
                                                         usernameVariable: 'username')]) {
                         // Ensure correct permissions for private key
-                        sh """
-                        ansible-inventory -i ec2.yml --list
-                                             """
 
-'
+                        // Run Ansible inventory list command
+                        sh """
+                            ansible-inventory -i ec2.yml --list
+                        """
                         
+                        // Run Ansible playbook with private key and user credentials
                         sh """
                             ansible-playbook -i aws_ec2.yml -u $username --private-key $privatekey playbook.yaml
                         """
@@ -35,7 +36,6 @@ pipeline {
         }
     }
     
-
     post {
         always {
             cleanWs()  // Clean up the workspace after execution
