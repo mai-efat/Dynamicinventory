@@ -20,10 +20,12 @@ pipeline {
                                                         passphraseVariable: 'password', 
                                                         usernameVariable: 'username')]) {
                         // Ensure correct permissions for private key
-                        sh 'ansible-inventory -i ec2.yml --list
-'
+                        sh """
+                        ansible-inventory -i ec2.yml --list
+                                             """
 
-                        // Run the Ansible playbook with the private key and user credentials
+'
+                        
                         sh """
                             ansible-playbook -i aws_ec2.yml -u $username --private-key $privatekey playbook.yaml
                         """
@@ -32,6 +34,7 @@ pipeline {
             }
         }
     }
+    
 
     post {
         always {
