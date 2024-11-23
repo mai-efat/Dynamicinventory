@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     // Clone the Git repository
-                    git branch: 'main', url: 'https://github.com/mai-efat/Dynamicinventory.git'
+                    git branch: 'master', url: 'https://github.com/mai-efat/Dynamicinventory.git'
                 }
             }
         }
