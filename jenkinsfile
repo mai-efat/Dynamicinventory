@@ -11,25 +11,21 @@ pipeline {
             }
         }
 
-
         stage('Run Ansible Playbook') {
             steps {
                 script {
                     // Run the Ansible playbook using SSH credentials
-             withCredentials([sshUserPrivateKey(credentialsId: 'agent', keyFileVariable: 'privatekey', passphraseVariable: 'password', usernameVariable: 'username')])
-              {
-    // some block
-
-                       
+                    withCredentials([sshUserPrivateKey(credentialsId: 'agent', 
+                                                        keyFileVariable: 'privatekey', 
+                                                        passphraseVariable: 'password', 
+                                                        usernameVariable: 'username')]) {
                         // Ensure correct permissions for private key
-                    
+                        sh 'chmod 600 $privatekey'
 
-                        // Run Ansible playbook with the private key and user credentials
+                        // Run the Ansible playbook with the private key and user credentials
                         sh """
-                            ansible-playbook -i aws_ec2.yml -u ec2-user --private-key $privatekey playbook.yaml
-
+                            ansible-playbook -i aws_ec2.yml -u $username --private-key $privatekey playbook.yaml
                         """
-              }
                     }
                 }
             }
