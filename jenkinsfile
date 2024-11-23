@@ -20,7 +20,8 @@ pipeline {
                                                         passphraseVariable: 'password', 
                                                         usernameVariable: 'username')]) {
                         // Ensure correct permissions for private key
-                        sh 'chmod 600 $privatekey'
+                        sh 'ansible-inventory -i ec2.yml --list
+'
 
                         // Run the Ansible playbook with the private key and user credentials
                         sh """
