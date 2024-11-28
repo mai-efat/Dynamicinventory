@@ -1,4 +1,4 @@
-# **Automated CloudWatch Agent Installation on EC2 Instances Using Lambda**
+# **Install  cloud watch agent on all ec2 in the project **
 
 ## **Project Overview**
 
