@@ -24,6 +24,8 @@ pipeline {
                         // Run Ansible inventory list command
                         sh """
                             ansible-inventory -i aws_ec2.yml --list
+                            ansible -i aws_ec2.yml all -m ping
+
                         """
                         
                         // Run Ansible playbook with private key and user credentials
